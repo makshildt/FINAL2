@@ -6,9 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class AddEmployeesPage extends JPanel {
     AddEmployeesPage() {
@@ -41,10 +44,18 @@ public class AddEmployeesPage extends JPanel {
         add(ComboBoxTeams);
 
         JComboBox AddEmpLabel6 = new JComboBox();
-        AddEmpLabel6.addItem("Team 1");
-        AddEmpLabel6.addItem("Team 2");
-        AddEmpLabel6.addItem("Team 3");
         add(AddEmpLabel6);
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:Mydb.db");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM teams");
+            while (resultSet.next()) {
+              AddEmpLabel6.addItem(resultSet.getString("name"));
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
 
         JButton AddEmpButton = new JButton("Submit");
         add(AddEmpButton);
@@ -56,17 +67,17 @@ public class AddEmployeesPage extends JPanel {
                 String YearOfBirth = AddEmpTextField3.getText();
                 String Email = AddEmpTextField4.getText();
                 String Role = AddEmpTextField5.getText();
-                //String Team = AddEmpLabel6.getSelectedItem().toString();
+                String Team = AddEmpLabel6.getSelectedItem().toString();
                 try {
                     Class.forName("org.sqlite.JDBC");
                     Connection connection = DriverManager.getConnection("jdbc:sqlite:mydb.db");
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO employees (first_name, last_name, year_of_birth, email, role) VALUES (?, ?, ?, ?, ?)");
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO employees (first_name, last_name, year_of_birth, email, role, team) VALUES (?, ?, ?, ?, ?, ?)");
                     statement.setString(1, FirstName);
                     statement.setString(2, LastName);
                     statement.setString(3, YearOfBirth);
                     statement.setString(4, Email);
                     statement.setString(5, Role);
-                    //statement.setString(6, Team);
+                    statement.setString(6, Team);
                     statement.executeUpdate();
                     connection.close();
                     JOptionPane.showMessageDialog(null, "Employee Added Successfully");

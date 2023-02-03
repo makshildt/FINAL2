@@ -27,13 +27,23 @@ public class AddTeamsPage extends JPanel {
                 statement.setString(1, teamName);
                 statement.executeUpdate();
                 connection.close();
+                //Connection connection2 = DriverManager.getConnection("jdbc:sqlite:mydb.db");
+                // Connection test = DriverManager.getConnection("jdbc:sqlite:mydb.db");
+                // test.close();
+                //
                 JOptionPane.showMessageDialog(null, "Team Added Successfully");
                 } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
+                } 
                 AddTeamsTextField.setText("");
+              
             }
           });
     }
 }
+
+
+
+
+
 

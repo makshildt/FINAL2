@@ -9,6 +9,8 @@ CREATE TABLE employees (
     last_name TEXT NOT NULL,
     year_of_birth INTEGER NOT NULL,
     email TEXT NOT NULL, 
-    role TEXT NOT NULL
+    role TEXT NOT NULL,
+    team TEXT NOT NULL
 );
 
+-- DROP TABLE IF EXISTS employees;

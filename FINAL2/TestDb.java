@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 public class TestDb {
     Connection connection = null;
 
@@ -17,7 +18,7 @@ public class TestDb {
 
     public TestDb connect() {
         try {
-            String url = "jdbc:sqlite:test.db";
+            String url = "jdbc:sqlite:Mydb.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {
@@ -51,5 +52,14 @@ public class TestDb {
         statement.execute(sql);
         ResultSet resultSet = statement.getResultSet();
         return resultSet;
+    }
+
+    public void refresh() {
+        try {
+            connection.close();
+            connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
