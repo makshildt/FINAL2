@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class Home extends JPanel {
     Home() {
-        JLabel HomeLabel = new JLabel("Welcome to the Employee Management System");
+        JLabel HomeLabel = new JLabel("Welcome to the Employee Management System!");
         add(HomeLabel);
         
         // JLabel CurrentTeams = new JLabel("Current Teams:");

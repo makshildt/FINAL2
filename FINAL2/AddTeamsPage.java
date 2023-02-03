@@ -1,8 +1,12 @@
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class AddTeamsPage extends JPanel {
     AddTeamsPage() {
@@ -13,13 +17,22 @@ public class AddTeamsPage extends JPanel {
         JButton AddTeamsButton = new JButton("Submit");
         add(AddTeamsButton);
         AddTeamsButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String AddTeamsText = AddTeamsTextField.getText();
-                System.out.println(AddTeamsText);
-                AddTeamsTextField.setText("");
-                
-                
+              String teamName = AddTeamsTextField.getText();
+              try {
+                Class.forName("org.sqlite.JDBC");
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:test.db");
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO teams (name) VALUES (?)");
+                statement.setString(1, teamName);
+
+                statement.executeUpdate();
+                connection.close();
+                JOptionPane.showMessageDialog(null, "Team Added Successfully");
+                } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
-        });
+          });
     }
 }

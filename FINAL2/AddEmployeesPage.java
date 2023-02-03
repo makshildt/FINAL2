@@ -33,6 +33,9 @@ public class AddEmployeesPage extends JPanel {
         JTextField AddEmpTextField5 = new JTextField((10));
         add(AddEmpTextField5);
 
+        JLabel ComboBoxTeams = new JLabel("Team:");
+        add(ComboBoxTeams);
+
         JComboBox AddEmpLabel6 = new JComboBox();
         AddEmpLabel6.addItem("Team 1");
         AddEmpLabel6.addItem("Team 2");
