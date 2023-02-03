@@ -1,10 +1,14 @@
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class AddEmployeesPage extends JPanel {
     AddEmployeesPage() {
@@ -45,9 +49,30 @@ public class AddEmployeesPage extends JPanel {
         JButton AddEmpButton = new JButton("Submit");
         add(AddEmpButton);
         AddEmpButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String AddEmpText = AddEmpTextField.getText();
-                System.out.println(AddEmpText);
+                String FirstName = AddEmpTextField.getText();
+                String LastName = AddEmpTextField2.getText();
+                String YearOfBirth = AddEmpTextField3.getText();
+                String Email = AddEmpTextField4.getText();
+                String Role = AddEmpTextField5.getText();
+                //String Team = AddEmpLabel6.getSelectedItem().toString();
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                    Connection connection = DriverManager.getConnection("jdbc:sqlite:mydb.db");
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO employees (first_name, last_name, year_of_birth, email, role) VALUES (?, ?, ?, ?, ?)");
+                    statement.setString(1, FirstName);
+                    statement.setString(2, LastName);
+                    statement.setString(3, YearOfBirth);
+                    statement.setString(4, Email);
+                    statement.setString(5, Role);
+                    //statement.setString(6, Team);
+                    statement.executeUpdate();
+                    connection.close();
+                    JOptionPane.showMessageDialog(null, "Employee Added Successfully");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
                 AddEmpTextField.setText("");
                 AddEmpTextField2.setText("");
                 AddEmpTextField3.setText("");

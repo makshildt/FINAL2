@@ -22,17 +22,18 @@ public class AddTeamsPage extends JPanel {
               String teamName = AddTeamsTextField.getText();
               try {
                 Class.forName("org.sqlite.JDBC");
-                Connection connection = DriverManager.getConnection("jdbc:sqlite:test.db");
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:mydb.db");
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO teams (name) VALUES (?)");
                 statement.setString(1, teamName);
-
                 statement.executeUpdate();
                 connection.close();
                 JOptionPane.showMessageDialog(null, "Team Added Successfully");
                 } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
+                AddTeamsTextField.setText("");
             }
           });
     }
 }
+
