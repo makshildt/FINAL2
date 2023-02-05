@@ -14,6 +14,23 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class AddEmployeesPage extends JPanel {
+    JComboBox teamListLable;
+
+    void refreshTeamList() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:Mydb.db");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM teams");
+            teamListLable.removeAllItems();
+            while (resultSet.next()) {
+                teamListLable.addItem(resultSet.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     AddEmployeesPage() {
         JLabel AddEmpLabel = new JLabel("First Name:");
         add(AddEmpLabel);
@@ -44,18 +61,9 @@ public class AddEmployeesPage extends JPanel {
         add(ComboBoxTeams);
 
         JComboBox AddEmpLabel6 = new JComboBox();
+        teamListLable = AddEmpLabel6;
         add(AddEmpLabel6);
-        try {
-            Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:Mydb.db");
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT name FROM teams");
-            while (resultSet.next()) {
-              AddEmpLabel6.addItem(resultSet.getString("name"));
-            }
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
+        refreshTeamList();
 
         JButton AddEmpButton = new JButton("Submit");
         add(AddEmpButton);
@@ -70,8 +78,9 @@ public class AddEmployeesPage extends JPanel {
                 String Team = AddEmpLabel6.getSelectedItem().toString();
                 try {
                     Class.forName("org.sqlite.JDBC");
-                    Connection connection = DriverManager.getConnection("jdbc:sqlite:mydb.db");
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO employees (first_name, last_name, year_of_birth, email, role, team) VALUES (?, ?, ?, ?, ?, ?)");
+                    Connection connection = DriverManager.getConnection("jdbc:sqlite:Mydb.db");
+                    PreparedStatement statement = connection.prepareStatement(
+                            "INSERT INTO employees (first_name, last_name, year_of_birth, email, role, team) VALUES (?, ?, ?, ?, ?, ?)");
                     statement.setString(1, FirstName);
                     statement.setString(2, LastName);
                     statement.setString(3, YearOfBirth);
@@ -81,6 +90,7 @@ public class AddEmployeesPage extends JPanel {
                     statement.executeUpdate();
                     connection.close();
                     JOptionPane.showMessageDialog(null, "Employee Added Successfully");
+                    Pages.DelEmployeesPage.refreshEmpList();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
