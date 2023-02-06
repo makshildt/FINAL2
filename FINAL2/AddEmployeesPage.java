@@ -91,6 +91,7 @@ public class AddEmployeesPage extends JPanel {
                     connection.close();
                     JOptionPane.showMessageDialog(null, "Employee Added Successfully");
                     Pages.DelEmployeesPage.refreshEmpList();
+                    Pages.Home.updateTable();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }

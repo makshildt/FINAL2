@@ -86,6 +86,7 @@ public class AddTasksDeadlinesPage extends JPanel {
                     JOptionPane.showMessageDialog(null, "Task Added Successfully");
                     Pages.DelTDPage.refreshTeamList();
                     Pages.DelTDPage.refreshTeam2List();
+                    Pages.Home.updateTable();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }

@@ -18,7 +18,7 @@ public class IA {
     IA() {
         mainFrame = new JFrame("IA");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(600, 400);
+        mainFrame.setSize(1000, 400);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
 

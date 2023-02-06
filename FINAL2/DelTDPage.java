@@ -76,6 +76,7 @@ public class DelTDPage extends JPanel {
                     //Pages.AddTasksDeadlinesPage.refreshTeam2List();
                     Pages.DelTDPage.refreshTeamList();
                     Pages.DelTDPage.refreshTeam2List();
+                    Pages.Home.updateTable();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

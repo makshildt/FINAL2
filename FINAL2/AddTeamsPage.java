@@ -31,6 +31,7 @@ public class AddTeamsPage extends JPanel {
                 Pages.AddEmployeesPage.refreshTeamList();
                 Pages.DelTeamsPage.refreshTeamList();
                 Pages.AddTasksDeadlinesPage.refreshTeamList();
+                Pages.Home.updateTable();
                 } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
                 } 

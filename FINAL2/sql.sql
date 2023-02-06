@@ -13,12 +13,13 @@
 --     team TEXT NOT NULL
 -- );
 
+
 -- DROP TABLE IF EXISTS employees;
 
-CREATE TABLE teams2 (
-    name TEXT NOT NULL UNIQUE,
-    task TEXT,
-    deadline INTEGER
-);
+-- CREATE TABLE teams2 (
+--     name TEXT NOT NULL UNIQUE,
+--     task TEXT,
+--     deadline INTEGER
+-- );
 
 -- DROP TABLE IF EXISTS teams2;
